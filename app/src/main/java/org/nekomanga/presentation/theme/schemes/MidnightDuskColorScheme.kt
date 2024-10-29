@@ -41,7 +41,7 @@ internal object MidnightDuskColorScheme : BaseColorScheme() {
             surfaceContainerLow = Color(0xFF1C1B1C),
             surfaceContainer = Color(0xFF201F20),
             surfaceContainerHigh = Color(0xFF2B2A2A),
-            surfaceContainerHighest = Color(0xFF353435)
+            surfaceContainerHighest = Color(0xFF353435),
         )
 
     override val lightScheme =
@@ -80,6 +80,6 @@ internal object MidnightDuskColorScheme : BaseColorScheme() {
             surfaceContainerLow = Color(0xFFF7F3F2),
             surfaceContainer = Color(0xFFF1EDED),
             surfaceContainerHigh = Color(0xFFEBE7E7),
-            surfaceContainerHighest = Color(0xFFE5E2E1)
+            surfaceContainerHighest = Color(0xFFE5E2E1),
         )
 }

@@ -35,15 +35,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.material3.createMdc3Theme
 import eu.kanade.tachiyomi.util.system.Themes
 import eu.kanade.tachiyomi.util.system.isInNightMode
 import org.nekomanga.R
 import org.nekomanga.presentation.components.MangaCover
 import org.nekomanga.presentation.components.NekoColors
 import org.nekomanga.presentation.theme.Size
+import org.nekomanga.presentation.theme.nekoThemeColorScheme
 
 @Composable
 fun ThemeItem(theme: Themes, isDarkTheme: Boolean, selected: Boolean, onClick: () -> Unit) {
@@ -54,14 +53,7 @@ fun ThemeItem(theme: Themes, isDarkTheme: Boolean, selected: Boolean, onClick: (
         if (isDarkTheme) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
     val themeContext = context.createConfigurationContext(configuration)
     themeContext.setTheme(theme.styleRes)
-    val colorScheme =
-        createMdc3Theme(
-                context = themeContext,
-                layoutDirection = LayoutDirection.Ltr,
-                setTextColors = true,
-                readTypography = false,
-            )
-            .colorScheme!!
+    val colorScheme = nekoThemeColorScheme()
 
     val themeMatchesApp =
         if (context.isInNightMode()) {

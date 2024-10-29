@@ -4,7 +4,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-internal class MangaDexColorScheme : BaseColorScheme() {
+internal object MangaDexColorScheme : BaseColorScheme() {
     override val darkScheme =
         darkColorScheme(
             primary = Color(0xFFFF6740),

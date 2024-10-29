@@ -24,7 +24,11 @@ enum class Themes(
         R.string.white_theme,
         R.string.dark,
     ),
-    OUTRUN(R.style.Theme_Tachiyomi_Outrun, AppCompatDelegate.MODE_NIGHT_YES, R.string.outrun),
+    OUTRUN(
+        R.style.Theme_Tachiyomi_Outrun,
+        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
+        R.string.outrun,
+    ),
     SPRING_AND_DUSK(
         R.style.Theme_Tachiyomi_MidnightDusk,
         AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
@@ -48,23 +52,23 @@ enum class Themes(
         R.string.lavender,
         R.string.violet,
     ),
-    GREY_WOLF(
-        R.style.Theme_Tachiyomi_GreyWolf,
-        AppCompatDelegate.MODE_NIGHT_YES,
-        R.string.grey_wolf,
-    ),
     STRAWBERRIES(
         R.style.Theme_Tachiyomi_Strawberries,
         AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
         R.string.strawberry_daiquiri,
         R.string.chocolate_strawberries,
     ),
-    TAKO(R.style.Theme_Tachiyomi_Tako, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, R.string.tako),
-    LIME(
-        R.style.Theme_Tachiyomi_FlatLime,
+    EMERALD_BRIGHT(
+        0,
         AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
-        R.string.lime_time,
-        R.string.flat_lime,
+        R.string.emerald_bright,
+        R.string.emerald_bright,
+    ),
+    CRAYOLA_BLUE(
+        0,
+        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
+        R.string.crayola_blue,
+        R.string.crayola_blue,
     );
 
     val isDarkTheme = nightMode == AppCompatDelegate.MODE_NIGHT_YES
