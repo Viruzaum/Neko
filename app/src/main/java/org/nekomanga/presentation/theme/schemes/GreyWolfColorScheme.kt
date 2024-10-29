@@ -4,7 +4,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-internal object GreyWolfScheme : BaseColorScheme() {
+internal object GreyWolfColorScheme : BaseColorScheme() {
     override val darkScheme =
         darkColorScheme(
             primary = Color(0xFFC8C6C6),
