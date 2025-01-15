@@ -23,6 +23,7 @@ data class FeedScreenState(
     val hasMoreResults: Boolean = true,
     val groupChaptersUpdates: Boolean = false,
     val historyGrouping: FeedHistoryGroup,
+    val groupRecents: Boolean = false,
     val incognitoMode: Boolean = false,
     val allFeedManga: ImmutableList<FeedManga> = persistentListOf(),
     val searchFeedManga: ImmutableList<FeedManga> = persistentListOf(),
@@ -56,6 +57,7 @@ data class FeedSettingActions(
     val switchUploadsSortOrder: () -> Unit,
     val outlineCoversClick: () -> Unit,
     val outlineCardsClick: () -> Unit,
+    val groupRecentsClick: () -> Unit,
     val clearDownloadQueueClick: () -> Unit,
     val toggleDownloadOnlyOnWifi: () -> Unit,
 )

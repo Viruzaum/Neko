@@ -56,11 +56,17 @@ class FeedRepository(
         type: FeedScreenType,
         uploadsFetchSort: Boolean,
         group: FeedHistoryGroup,
+        groupRecents: Boolean,
     ): Result<Pair<Boolean, List<FeedManga>>, ResultError.Generic> {
         return com.github.michaelbull.result
             .runCatching {
                 when (type) {
                     FeedScreenType.Updates -> {
+
+                        if (offset == 0) {
+                            bySeriesSet.clear()
+                        }
+
                         val chapters =
                             db.getRecentChapters(
                                     search = searchQuery,
@@ -72,6 +78,7 @@ class FeedRepository(
                                 .mapNotNull {
                                     val chapterItem =
                                         getChapterItem(it.manga, it.chapter.toSimpleChapter()!!)
+
                                     val date =
                                         when (uploadsFetchSort) {
                                             true -> it.chapter.date_fetch
@@ -86,7 +93,23 @@ class FeedRepository(
                                         chapters = persistentListOf(chapterItem),
                                     )
                                 }
-                        Pair(chapters.isNotEmpty(), chapters)
+
+                        val hasMoreResults = chapters.isNotEmpty()
+                        val chaptersToUse =
+                            when (groupRecents) {
+                                true -> {
+                                    chapters.mapNotNull { feedManga ->
+                                        if (bySeriesSet.contains(feedManga.mangaId)) {
+                                            return@mapNotNull null
+                                        }
+                                        bySeriesSet.add(feedManga.mangaId)
+                                        feedManga
+                                    }
+                                }
+                                false -> chapters
+                            }
+
+                        Pair(hasMoreResults, chaptersToUse)
                     }
                     FeedScreenType.History -> {
                         val chapters =
@@ -300,6 +323,7 @@ class FeedRepository(
                     type = FeedScreenType.History,
                     uploadsFetchSort = false,
                     group = FeedHistoryGroup.Series,
+                    groupRecents = true,
                 )
             return page.get()?.second?.mapNotNull { feedManga ->
                 feedRepository.db.getManga(feedManga.mangaId).executeAsBlocking()

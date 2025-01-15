@@ -57,6 +57,7 @@ fun FeedPage(
     hasMoreResults: Boolean,
     hideChapterTitles: Boolean,
     groupedBySeries: Boolean,
+    groupRecents: Boolean,
     updatesFetchSort: Boolean,
     feedScreenActions: FeedScreenActions,
     loadNextPage: () -> Unit,

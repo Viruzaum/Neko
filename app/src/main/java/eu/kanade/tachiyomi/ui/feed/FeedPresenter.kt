@@ -53,6 +53,7 @@ class FeedPresenter(
                 incognitoMode = securityPreferences.incognitoMode().get(),
                 groupChaptersUpdates = preferences.groupChaptersUpdates().get(),
                 historyGrouping = preferences.historyChapterGrouping().get(),
+                groupRecents = preferences.groupRecents().get(),
                 hideChapterTitles = mangaDetailsPreferences.hideChapterTitlesByDefault().get(),
                 downloadOnlyOnWifi = preferences.downloadOnlyOverWifi().get(),
             )
@@ -72,6 +73,7 @@ class FeedPresenter(
                     type = _feedScreenState.value.feedScreenType,
                     uploadsFetchSort = _feedScreenState.value.updatesSortedByFetch,
                     group = _feedScreenState.value.historyGrouping,
+                    groupRecents = _feedScreenState.value.groupRecents,
                 )
             },
             getNextKey = { _feedScreenState.value.offset + ENDLESS_LIMIT },
@@ -163,6 +165,16 @@ class FeedPresenter(
         }
 
         presenterScope.launch {
+            preferences.groupRecents().changes().collectLatest {
+                _feedScreenState.update { state ->
+                    state.copy(groupRecents = it, offset = 0, allFeedManga = persistentListOf())
+                }
+                paginator.reset()
+                loadNextPage()
+            }
+        }
+
+        presenterScope.launch {
             preferences.feedViewType().changes().collectLatest {
                 _feedScreenState.update { state ->
                     state.copy(feedScreenType = it, offset = 0, allFeedManga = persistentListOf())
@@ -200,6 +212,10 @@ class FeedPresenter(
 
     fun toggleGroupHistoryType(historyGrouping: FeedHistoryGroup) {
         presenterScope.launchIO { preferences.historyChapterGrouping().set(historyGrouping) }
+    }
+
+    fun toggleGroupRecents() {
+        presenterScope.launchIO { preferences.groupRecents().toggle() }
     }
 
     fun toggleOutlineCards() {
@@ -317,6 +333,7 @@ class FeedPresenter(
                             _feedScreenState.value.feedScreenType,
                             _feedScreenState.value.updatesSortedByFetch,
                             _feedScreenState.value.historyGrouping,
+                            groupRecents = _feedScreenState.value.groupRecents,
                         )
                         .onSuccess { results ->
                             _feedScreenState.update { state ->
@@ -472,6 +489,7 @@ class FeedPresenter(
                                 type = _feedScreenState.value.feedScreenType,
                                 uploadsFetchSort = _feedScreenState.value.updatesSortedByFetch,
                                 group = _feedScreenState.value.historyGrouping,
+                                groupRecents = _feedScreenState.value.groupRecents,
                             )
                             .onSuccess { results ->
                                 _feedScreenState.update { state ->
@@ -492,6 +510,7 @@ class FeedPresenter(
                                 type = _feedScreenState.value.feedScreenType,
                                 uploadsFetchSort = _feedScreenState.value.updatesSortedByFetch,
                                 group = _feedScreenState.value.historyGrouping,
+                                groupRecents = _feedScreenState.value.groupRecents,
                             )
                             .onSuccess { results ->
                                 mutableFeedManga =

@@ -46,9 +46,11 @@ fun FeedBottomSheet(
     downloadOnlyOnWifi: Boolean,
     historyGrouping: FeedHistoryGroup,
     sortByFetched: Boolean,
+    groupRecents: Boolean,
     outlineCovers: Boolean,
     outlineCards: Boolean,
     sortClick: () -> Unit,
+    groupRecentsClick: () -> Unit,
     outlineCardsClick: () -> Unit,
     outlineCoversClick: () -> Unit,
     groupHistoryClick: (FeedHistoryGroup) -> Unit,
@@ -83,9 +85,11 @@ fun FeedBottomSheet(
                         clearHistoryClick = clearHistoryClick,
                     )
                 feedScreenType == FeedScreenType.Updates ->
-                    uploadsContent(
+                    updatesContent(
                         fetchSort = sortByFetched,
                         outlineCovers = outlineCovers,
+                        groupRecents = groupRecents,
+                        groupRecentsClick = groupRecentsClick,
                         sortClick = sortClick,
                         outlineCoversClick = outlineCoversClick,
                     )
@@ -208,14 +212,17 @@ private fun LazyListScope.downloadsContent(
     }
 }
 
-private fun LazyListScope.uploadsContent(
+private fun LazyListScope.updatesContent(
     fetchSort: Boolean,
     outlineCovers: Boolean,
+    groupRecents: Boolean,
     sortClick: () -> Unit,
+    groupRecentsClick: () -> Unit,
     outlineCoversClick: () -> Unit,
 ) {
     item { SwitchRow(R.string.sort_fetched_time, fetchSort, sortClick) }
     item { SwitchRow(R.string.show_outline_around_covers, outlineCovers, outlineCoversClick) }
+    item { SwitchRow(R.string.group_chapters_together, groupRecents, groupRecentsClick) }
 }
 
 @Composable

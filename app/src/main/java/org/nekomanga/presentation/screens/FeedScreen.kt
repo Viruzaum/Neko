@@ -135,6 +135,7 @@ fun FeedScreen(
                         downloadOnlyOnWifi = feedScreenState.value.downloadOnlyOnWifi,
                         historyGrouping = feedScreenState.value.historyGrouping,
                         sortByFetched = feedScreenState.value.updatesSortedByFetch,
+                        groupRecents = feedScreenState.value.groupRecents,
                         outlineCovers = feedScreenState.value.outlineCovers,
                         outlineCards = feedScreenState.value.outlineCards,
                         groupHistoryClick = { feedHistoryGroup ->
@@ -145,6 +146,7 @@ fun FeedScreen(
                         sortClick = { feedSettingActions.switchUploadsSortOrder() },
                         outlineCoversClick = { feedSettingActions.outlineCoversClick() },
                         outlineCardsClick = { feedSettingActions.outlineCardsClick() },
+                        groupRecentsClick = { feedSettingActions.groupRecentsClick() },
                         toggleDownloadOnWifi = { feedSettingActions.toggleDownloadOnlyOnWifi() },
                     )
                 }
@@ -239,6 +241,7 @@ fun FeedScreen(
                                             FeedHistoryGroup.Series,
                                     feedScreenType = feedScreenState.value.feedScreenType,
                                     historyGrouping = feedScreenState.value.historyGrouping,
+                                    groupRecents = feedScreenState.value.groupRecents,
                                     outlineCovers = feedScreenState.value.outlineCovers,
                                     outlineCards = feedScreenState.value.outlineCards,
                                     hideChapterTitles = feedScreenState.value.hideChapterTitles,
