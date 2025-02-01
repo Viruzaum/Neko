@@ -131,7 +131,7 @@ private fun UpdatesRow(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            if (isGrouped) {
+            if (isGrouped && numberOfChapters > 1) {
                 Text(
                     text = "$numberOfChapters total chapters",
                     style = MaterialTheme.typography.labelSmall,
