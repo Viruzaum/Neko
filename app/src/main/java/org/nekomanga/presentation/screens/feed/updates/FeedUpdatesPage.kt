@@ -105,7 +105,14 @@ private fun Grouped(
             val dateString = getDateString(feedManga.date, now)
             // there should only ever be 1
 
-            val latestChapter = feedManga.chapters.first()
+            val unreadChapters = feedManga.chapters.filter { !it.chapter.read }
+
+            val latestChapter =
+                if (unreadChapters.isEmpty()) {
+                    feedManga.chapters.first()
+                } else {
+                    unreadChapters.last()
+                }
 
             if (dateString.isNotEmpty() && timeSpan != dateString) {
                 timeSpan = dateString
